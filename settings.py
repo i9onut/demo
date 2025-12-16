@@ -1,12 +1,16 @@
 import pygame
 
-
 WIDTH, HEIGHT = 800, 600
 UI_HEIGHT = 100
 MAP_HEIGHT = HEIGHT - UI_HEIGHT
 FPS = 60
 
+# --- Grid System ---
+TILE_SIZE = 50
+GRID_COLS = WIDTH // TILE_SIZE
+GRID_ROWS = MAP_HEIGHT // TILE_SIZE
 
+# --- Colors ---
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (200, 50, 50)
@@ -15,13 +19,23 @@ BLUE = (50, 50, 200)
 YELLOW = (200, 200, 50)
 GRAY = (100, 100, 100)
 BROWN = (139, 69, 19)
+GRID_COLOR = (0, 0, 0, 50)  # Transparent black
 PATH_COLOR = (200, 180, 130)
 
+# --- Gameplay ---
 STARTING_MONEY = 250
 STARTING_LIVES = 10
 WIN_WAVE = 5
 
+# --- Player ---
+PLAYER_COLOR = (255, 255, 255)  # White box
+PLAYER_START_POS = (GRID_COLS // 2, GRID_ROWS // 2)
+PLAYER_MOVE_DELAY = 150  # ms between moves
+PLAYER_DAMAGE = 20
+PLAYER_ATTACK_RANGE = 75 # pixels (approx 1.5 tiles)
+PLAYER_ATTACK_COOLDOWN = 500 # ms
 
+# --- Path & Towers ---
 PATH_POINTS = [
     (-50, 100), (700, 100), (700, 500), (100, 500),
     (100, 200), (600, 200), (600, 400), (200, 400),
@@ -29,13 +43,11 @@ PATH_POINTS = [
 ]
 BASE_POS = PATH_POINTS[-1]
 
-
 TOWER_TYPES = {
     "Archer": {"cost": 50, "range": 120, "damage": 10, "cooldown": 800, "color": GREEN, "name": "Archer"},
     "Mage":   {"cost": 100, "range": 80,  "damage": 30, "cooldown": 1500, "color": BLUE, "name": "Mage"},
     "Sniper": {"cost": 150, "range": 200, "damage": 50, "cooldown": 2500, "color": YELLOW, "name": "Sniper"}
 }
-
 
 WAVES = [
     {"count": 5, "hp": 30, "spd": 2, "rew": 15, "delay": 1000, "grade": 0},
